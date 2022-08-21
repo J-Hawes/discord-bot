@@ -5,7 +5,6 @@ const { Client, Collection, GatewayIntentBits } = require('discord.js');
 // Require dotenv for configuring environment variables
 require("dotenv").config();
 const TOKEN = process.env.DISCORD_TOKEN;
-
 // Create a new client instance
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 // Read command files
@@ -38,5 +37,5 @@ client.on('interactionCreate', async interaction => {
 	}
 });
 
-// Login to Discord with your client's token
+// Login to Discord with client's token
 client.login(TOKEN);

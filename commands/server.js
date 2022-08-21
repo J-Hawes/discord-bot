@@ -5,7 +5,8 @@ module.exports = {
 		.setName('server')
 		.setDescription('Replies with server info!'),
 	async execute(interaction) {
-		await interaction.reply(`Server name: ${interaction.guild.name}\nTotal members: ${interaction.guild.memberCount}
-Created on: ${interaction.guild.createdAt}\nOwner ${interaction.guild.ownerId}`);
+        let owner = await interaction.guild.fetchOwner();
+        console.log(owner);
+		await interaction.reply(`Server name: ${interaction.guild.name}\nTotal members: ${interaction.guild.memberCount}\nCreated on: ${interaction.guild.createdAt.toDateString()}\nOwner ${owner.user.username}`);
 	},
 };
