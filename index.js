@@ -2,14 +2,14 @@ const fs = require ('node:fs');
 const path = require('node:path');
 
 // Require the necessary discord.js classes
-const { ActivityType, Client, Collection, GatewayIntentBits, GuildMember } = require('discord.js');
+const { ActivityType, Client, Collection, GatewayIntentBits } = require('discord.js');
 
 // Require dotenv for configuring environment variables
 require("dotenv").config();
 const TOKEN = process.env.DISCORD_TOKEN;
 
 // Create a new client instance
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers] });
 
 // Read command files
 client.commands = new Collection();
@@ -27,6 +27,19 @@ client.once('ready', () => {
 	console.log(`Ready! Logged in as ${client.user.tag}`);
 });
 
+// needs work, assign non-member role on joining
+client.on('guildMemberAdd', member => {
+    console.log('User: ' + member.user.username + ' has joined the server!');
+    let role = member.guild.roles.cache.find(role => role.name === 'nonmembers');
+    member.roles.add(role);
+    member.guild.channels.cache.get('1010732049499426847').send(`Welcome <@${member.user.id}> to the Server`);
+});
+
+client.on('guildMemberRemove', member => {
+    console.log('User: ' + member.user.username + ' has left the server!');
+    member.guild.channels.cache.get('1010732049499426847').send(`<@${member.user.id}> has left the Server`);
+});
+
 client.on('interactionCreate', async interaction => {
 	if (!interaction.isChatInputCommand()) return;
 
@@ -42,18 +55,7 @@ client.on('interactionCreate', async interaction => {
 		await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
 	}
 });
-// needs work, assign non-member role on joining
-client.on('GuildMemberAdd', async member => {
-    try{
-        console.log('User: ' + member.user.username + ' has joined the server!');
-        const role = member.guild.roles.cache.find(role => role.name === "non members");
-        await member.roles.add(role);
-    } catch (error)
-    {
-        console.log(error);
-    }
-    
-});
+
 
 // Login to Discord with client's token
 client.login(TOKEN);
