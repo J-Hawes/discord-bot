@@ -55,10 +55,10 @@ bot.on('messageCreate', message => {
         message.delete();
 
         const embed = new EmbedBuilder()
-        .setColor(0x0099FF)
-        .setTitle(`⚠ WARNING ⚠`)
-        .setAuthor({ name: message.author.username, iconURL: bot.guilds.resolve(message.guildId).members.resolve(message.author.id).user.avatarURL() })
-        .setDescription('Swear Filter Detection')
+        .setColor([255, 204, 77])
+        .setTitle(`⚠ Swear Filter Detection ⚠`)
+        .setAuthor({ name: `[WARN] ${message.author.tag}`, iconURL: bot.guilds.resolve(message.guildId).members.resolve(message.author.id).user.avatarURL() })
+        //.setDescription('Swear Filter Detection')
         .setThumbnail('https://cdn.discordapp.com/app-icons/1010001480574574604/e780efaafbcaccd8356dd42088718910.png')
         .addFields(
             { name: 'User Name', value: `<@${message.author.id}>`, inline: true },
