@@ -2,15 +2,15 @@ const fs = require ('node:fs');
 const path = require('node:path');
 
 // Require the necessary discord.js classes
-const { SlashCommandBuilder, Routes } = require('discord.js');
+const { Routes } = require('discord.js');
 const { REST } = require('@discordjs/rest');
 
 // dotenv for configuring environment variables
-require("dotenv").config();
+require('dotenv').config();
 const { DISCORD_TOKEN, CLIENT_ID, GUILD_ID } = process.env;
 
 // Aquire command array
-const commands = []
+const commands = [];
 const commandsPath = path.join(__dirname, 'commands');
 const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
 
@@ -33,7 +33,8 @@ const rest = new REST({ version: '10' }).setToken(DISCORD_TOKEN);
 		);
 
 		console.log('Successfully reloaded application (/) commands.');
-	} catch (error) {
+	}
+    catch (error) {
 		console.error(error);
 	}
 })();
