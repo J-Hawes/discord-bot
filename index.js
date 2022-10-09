@@ -12,6 +12,7 @@ const bot = new Client({ intents: 34375 });
 
 // Read command files
 bot.commands = new Collection();
+bot.events = new Collection();
 
 ['command_handler', 'event_handler'].forEach(handler => {
 	bot.commands.set(command_handler, event_handler);
