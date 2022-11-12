@@ -8,14 +8,14 @@ require('dotenv').config();
 const TOKEN = process.env.DISCORD_TOKEN;
 
 // Create a new client instance
-const bot = new Client({ intents: 33351 });
+const bot = new Client({ intents: 34375 });
 
 // Read command files
 bot.commands = new Collection();
+bot.events = new Collection();
 
 ['command_handler', 'event_handler'].forEach(handler => {
 	bot.commands.set(command_handler, event_handler);
-    // console.log(bot);
 	require(`./handlers/${handler}`)(bot);
 });
 
