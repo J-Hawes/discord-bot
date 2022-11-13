@@ -1,6 +1,6 @@
 # Dependency directories
-node_modules/
-
+/node_modules/
+/prod/
 # eslint
 .eslintcache
 .eslintrc.json
@@ -8,4 +8,3 @@ node_modules/
 
 # dotenv environment variables file
 .env
-.env.test
