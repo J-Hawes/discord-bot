@@ -1,9 +1,10 @@
 import { CommandInteractionOptionResolver } from "discord.js";
-import { bot } from "..";
-import { Event } from "../types/Event";
+import { bot } from '../../';
+import { Event } from '../../types/Event';
 
+//fix this channel name in the log
 export default new Event('interactionCreate', async (interaction) => {
-console.log(`${interaction.user.tag} in #${interaction.channel?.fetch.name} triggered an interaction.`);
+console.log(`${interaction.user.tag} in ${await interaction.channel} triggered an interaction.`);
     if (!interaction.isCommand()) return;
     const command = bot.commands.get(interaction.commandName);
     if (!command) return;

@@ -1,7 +1,7 @@
 import { ApplicationCommandDataResolvable, Client, ClientEvents, Collection } from "discord.js";
 import { Event } from "./types/Event";
 import { RegisterCommandsOptions } from "./types/Client";
-import { CommandType } from "./types/Command";
+import { CommandType } from "./types/CommandType";
 import glob from "glob";
 import { promisify } from "util";
 
@@ -40,21 +40,19 @@ export class ExtendedClient extends Client {
         commandFiles.forEach(async filePath => {
             const command: CommandType= await this.importFile(filePath);
             if(!command.name) return;
-console.log(command.name, command);
             this.commands.set(command.name, command);
             slashCommands.push(command);
         });
 
-        // this.on("ready", () => {
-        //     this.registerCommands({
-        //         commands: slashCommands,
-        //         guildId: process.env.GUILD_ID
-        //     });
-        // });
+        this.on("ready", () => {
+            this.registerCommands({
+                commands: slashCommands,
+                guildId: process.env.GUILD_ID
+            });
+        });
 
         //events
-        const eventFiles = await globPromise(`${__dirname}/events/*{.ts,.js}`);
-        console.log({eventFiles});
+        const eventFiles = await globPromise(`${__dirname}/events/*/*{.ts,.js}`);
         eventFiles.forEach(async (filePath) => {
             const event: Event<keyof ClientEvents> = await this.importFile(filePath);
             this.on(event.event, event.run)
