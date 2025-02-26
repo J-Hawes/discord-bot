@@ -1,15 +1,15 @@
 const welcome = require('./welcomeMessage');
 
-module.exports = (bot, member) => {
+module.exports = (bot : any, member : any) => {
 	const channelId = '1010732049499426847';
 
-	const getEmoji = (emojiName) =>
-		bot.emojis.cache.find((emoji) => emoji.name === emojiName);
+	const getEmoji = (emojiName: string) =>
+		bot.emojis.cache.find((emoji: { name: string; }) => emoji.name === emojiName);
 
-	const emojis = {
-		instinct: 'Instinct',
-		mystic: 'Mystic',
-		valor: 'Valor',
+	enum emojis {
+		instinct,
+		mystic,
+		valor
 	};
 
 	const reactions = [];
@@ -25,7 +25,7 @@ module.exports = (bot, member) => {
 
 	welcome(bot, member, channelId, emojiText, [reactions]);
 
-	const handleReaction = (reaction, user, add) => {
+	const handleReaction = (reaction : any, user : any, add : any) => {
 		if (user.bot === true) {
 			return;
 		}
@@ -38,8 +38,8 @@ module.exports = (bot, member) => {
 			return;
 		}
 
-		const role = guild.roles.cache.find(roles => roles.name === roleName);
-		const members = guild.members.cache.find(memberss => memberss.id === user.id);
+		const role = guild.roles.cache.find((roles: { name: string; }) => roles.name === roleName);
+		const members = guild.members.cache.find((memberss: { id: any; }) => memberss.id === user.id);
 
 		if (add) {
 			members.roles.add(role);
@@ -49,13 +49,13 @@ module.exports = (bot, member) => {
 		}
 	};
 
-	bot.on('messageReactionAdd', (reaction, user) => {
+	bot.on('messageReactionAdd', (reaction : any, user : any) => {
 		if (reaction.message.channel.id === channelId) {
 			handleReaction(reaction, user, true);
 		}
 	});
 
-	bot.on('messageReactionRemove', (reaction, user) => {
+	bot.on('messageReactionRemove', (reaction : any, user : any) => {
 		if (reaction.message.channel.id === channelId) {
 			handleReaction(reaction, user, false);
 		}
