@@ -1,6 +1,8 @@
+import { ExtendedClient } from "../client";
+
 const teamRole = require('../../teamRole');
 
-module.exports = async (bot : any, member : any) => {
+module.exports = async (bot : ExtendedClient, member : any) => {
 	const role = member.guild.roles.cache.find((roles: { name: string; }) => roles.name === 'New-Members');
 
 	console.log('User: ' + member.user.username + ' has joined the server!');

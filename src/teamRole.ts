@@ -1,16 +1,18 @@
+import { ExtendedClient } from "./client";
+
 const welcome = require('./welcomeMessage');
 
-module.exports = (bot : any, member : any) => {
-	const channelId = '1010732049499426847';
+module.exports = (bot : ExtendedClient, member : any) => {
+	const channelId : String = '1010732049499426847';
 
 	const getEmoji = (emojiName: string) =>
-		bot.emojis.cache.find((emoji: { name: string; }) => emoji.name === emojiName);
+		bot.emojis.cache.find((emoji) => emoji.name === emojiName);
 
-	enum emojis {
-		instinct,
-		mystic,
-		valor
-	};
+    const emojis : any = {
+        instinct: 'Instinct',
+        mystic: 'Mystic',
+        valor: 'Valor',
+    };
 
 	const reactions = [];
 
