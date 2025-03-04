@@ -1,5 +1,5 @@
 const { EmbedBuilder } = require('discord.js');
-
+// Basic swear word filter
 module.exports = async (bot, message) => {
     // Make sure filtered list of words are lowercase only.
     const swearWords = ['cunt', 'fuck'];
